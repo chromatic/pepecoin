@@ -104,6 +104,7 @@ BITCOIN_CORE_H = \
   pepecoin.h \
   pepecoin-fees.cpp \
   pepecoin-fees.h \
+  fs.h \
   httprpc.h \
   httpserver.h \
   indirectmap.h \
@@ -352,6 +353,7 @@ libpepecoin_util_a_SOURCES = \
   compat/glibc_sanity.cpp \
   compat/glibcxx_sanity.cpp \
   compat/strnlen.cpp \
+  fs.cpp \
   random.cpp \
   rpc/protocol.cpp \
   support/cleanse.cpp \
