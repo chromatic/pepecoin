@@ -176,6 +176,12 @@ BitcoinGUI::BitcoinGUI(const PlatformStyle *_platformStyle, const NetworkStyle *
     QFontDatabase::addApplicationFont(":fonts/RobotoMono-Bold");
     QFont::insertSubstitution("Monospace", "RobotoMono");
 
+    // Dogecoin: load this bundled font for Settings -> Options in case it's not available on the system
+    QFontDatabase::addApplicationFont(":fonts/NotoSans-Bold");
+    QFontDatabase::addApplicationFont(":fonts/NotoSans-Light");
+    QFontDatabase::addApplicationFont(":fonts/NotoSans-Medium");
+    QFontDatabase::addApplicationFont(":fonts/NotoSans-Regular");
+
     // Pepecoin: Specify Monospace as new font.
     QFont newFont("Monospace", 10);
 
