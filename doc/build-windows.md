@@ -57,7 +57,6 @@ Install the general dependencies. First, ensure your system is updated and has t
     sudo apt update
     sudo apt upgrade
     sudo apt-get install build-essential libtool autotools-dev automake pkg-config bsdmainutils curl git
-
 A host toolchain (`build-essential`) is necessary because some dependency
 packages (such as `protobuf`) need to build host utilities that are used in the
 build process.
