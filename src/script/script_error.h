@@ -64,6 +64,9 @@ typedef enum ScriptError_t
     SCRIPT_ERR_WITNESS_UNEXPECTED,
     SCRIPT_ERR_WITNESS_PUBKEYTYPE,
 
+    /* inscription */
+    SCRIPT_ERR_INVALID_INSCRIBE,
+
     SCRIPT_ERR_ERROR_COUNT
 } ScriptError;
 

@@ -13,6 +13,8 @@
 #include "script/script.h"
 #include "uint256.h"
 
+#include <iostream>
+
 using namespace std;
 
 typedef vector<unsigned char> valtype;
@@ -434,19 +436,19 @@ bool EvalScript(vector<vector<unsigned char> >& stack, const CScript& script, un
                 }
                 break;
 
+                // push the next data value -- 0x20 <32 bytes of data>
                 case OP_INSCRIBE:
                 {
-                    // this should become SCRIPT_ERR_INVALID_INSCRIBE
-                    if (pend - pc < 32)
-                        return set_error(serror, SCRIPT_ERR_PUSH_SIZE);
+                    if (*pc != 0x20 || pend - pc < 33)
+                        return set_error(serror, SCRIPT_ERR_INVALID_INSCRIBE);
 
-                    vchPushValue.assign(pc, pc + 32);
+                    vchPushValue.assign(pc + 1, pc + 33);
 
                     if (vchPushValue.size() != 32)
-                        return set_error(serror, SCRIPT_ERR_PUSH_SIZE);
+                        return set_error(serror, SCRIPT_ERR_INVALID_INSCRIBE);
 
                     stack.push_back(vchPushValue);
-                    pc += 32;
+                    pc += 33;
                 }
                 break;
 
