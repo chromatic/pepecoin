@@ -427,10 +427,26 @@ bool EvalScript(vector<vector<unsigned char> >& stack, const CScript& script, un
                 }
 
                 case OP_NOP1: case OP_NOP4: case OP_NOP5:
-                case OP_NOP6: case OP_NOP7: case OP_NOP8: case OP_NOP9: case OP_INSCRIBE:
+                case OP_NOP6: case OP_NOP7: case OP_NOP8: case OP_NOP9:
                 {
                     if (flags & SCRIPT_VERIFY_DISCOURAGE_UPGRADABLE_NOPS)
                         return set_error(serror, SCRIPT_ERR_DISCOURAGE_UPGRADABLE_NOPS);
+                }
+                break;
+
+                case OP_INSCRIBE:
+                {
+                    // this should become SCRIPT_ERR_INVALID_INSCRIBE
+                    if (pend - pc < 32)
+                        return set_error(serror, SCRIPT_ERR_PUSH_SIZE);
+
+                    vchPushValue.assign(pc, pc + 32);
+
+                    if (vchPushValue.size() != 32)
+                        return set_error(serror, SCRIPT_ERR_PUSH_SIZE);
+
+                    stack.push_back(vchPushValue);
+                    pc += 32;
                 }
                 break;
 
