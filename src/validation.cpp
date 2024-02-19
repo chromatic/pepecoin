@@ -1916,6 +1916,11 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
         flags |= SCRIPT_VERIFY_NULLDUMMY;
     }
 
+    // Start enforcing INSCRIBE rules using versionbits logic.
+    if (IsInscribeEnabled(pindex->pprev, consensus)) {
+        flags |= SCRIPT_VERIFY_INSCRIBE;
+    }
+
     int64_t nTime2 = GetTimeMicros(); nTimeForks += nTime2 - nTime1;
     LogPrint("bench", "    - Fork checks: %.2fms [%.2fs]\n", 0.001 * (nTime2 - nTime1), nTimeForks * 0.000001);
 
@@ -2799,6 +2804,9 @@ bool ReceivedBlockTransactions(const CBlock &block, CValidationState& state, CBl
     if (IsWitnessEnabled(pindexNew->pprev, Params().GetConsensus(pindexNew->nHeight))) {
         pindexNew->nStatus |= BLOCK_OPT_WITNESS;
     }
+    if (IsInscribeEnabled(pindexNew->pprev, Params().GetConsensus(pindexNew->nHeight))) {
+        pindexNew->nStatus |= BLOCK_OPT_INSCRIBE;
+    }
     pindexNew->RaiseValidity(BLOCK_VALID_TRANSACTIONS);
     setDirtyBlockIndex.insert(pindexNew);
 
@@ -3019,6 +3027,12 @@ bool IsWitnessEnabled(const CBlockIndex* pindexPrev, const Consensus::Params& pa
     return false;
     // LOCK(cs_main);
     // return (VersionBitsState(pindexPrev, params, Consensus::DEPLOYMENT_SEGWIT, versionbitscache) == THRESHOLD_ACTIVE);
+}
+
+bool IsInscribeEnabled(const CBlockIndex* pindexPrev, const Consensus::Params& params)
+{
+    LOCK(cs_main);
+    return (VersionBitsState(pindexPrev, params, Consensus::DEPLOYMENT_INSCRIBE, versionbitscache) == THRESHOLD_ACTIVE);
 }
 
 // Compute at which vout of the block's coinbase transaction the witness
