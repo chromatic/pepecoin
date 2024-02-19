@@ -439,6 +439,13 @@ bool EvalScript(vector<vector<unsigned char> >& stack, const CScript& script, un
                 // push the next data value -- 0x20 <32 bytes of data>
                 case OP_INSCRIBE:
                 {
+                    if (!(flags & SCRIPT_VERIFY_INSCRIBE)) {
+                        // not enabled; treat as a NOP
+                        if (flags & SCRIPT_VERIFY_DISCOURAGE_UPGRADABLE_NOPS)
+                            return set_error(serror, SCRIPT_ERR_DISCOURAGE_UPGRADABLE_NOPS);
+                        break;
+                    }
+
                     if (*pc != 0x20 || pend - pc < 33)
                         return set_error(serror, SCRIPT_ERR_INVALID_INSCRIBE);
 
