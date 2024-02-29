@@ -12,6 +12,8 @@ Unlike all iterations before it, Pepecoin is a layer 1 coin. This means there ar
 
 The Pepecoin Core software allows anyone to operate a node in the Pepecoin blockchain networks and uses the Scrypt hashing method for Proof of Work. It is adapted from Dogecoin Core, Bitcoin Core, and other cryptocurrencies.
 
+For internationalized documentation, see the index at [doc/intl](doc/intl/README.md).
+
 For information about the default fees used on the Pepecoin network, please
 refer to the [fee recommendation](doc/fee-recommendation.md).
 
