@@ -835,11 +835,11 @@ public:
      */
     static CAmount GetMinimumFee(const CMutableTransaction& tx, unsigned int nTxBytes, unsigned int nConfirmTarget, const CTxMemPool& pool, CAmount targetFee);
     /**
-     * Pepecoin: Get a fee targetting a specific transaction speed.
+     * Pepecoin: Get a fee targeting a specific transaction speed.
      */
     CAmount GetPepecoinPriorityFee(const CMutableTransaction& tx, unsigned int nTxBytes, FeeRatePreset nSpeed);
     /**
-     * Pepecoin: Get a fee targetting a specific transaction speed.
+     * Pepecoin: Get a fee targeting a specific transaction speed.
      */
     static CAmount GetPepecoinPriorityFee(const CMutableTransaction& tx, unsigned int nTxBytes, FeeRatePreset nSpeed, CAmount targetFee);
     /**
