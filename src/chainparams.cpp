@@ -70,6 +70,7 @@ static CBlock CreateGenesisBlock(uint32_t nTime, uint32_t nNonce, uint32_t nBits
 class CMainParams : public CChainParams {
 private:
     Consensus::Params digishieldConsensus;
+    Consensus::Params nonDigishieldConsensus;
     Consensus::Params auxpowConsensus;
 public:
     CMainParams() {
@@ -123,13 +124,21 @@ public:
         consensus.nHeightEffective = 0;
         consensus.fSimplifiedRewards = true;
 
-        // Blocks 1000 - 99,999 are Digishield without AuxPoW
+        // Blocks 1000 - 34,999 are Digishield without AuxPoW
         digishieldConsensus = consensus;
         digishieldConsensus.nHeightEffective = 1000;
         digishieldConsensus.fSimplifiedRewards = true;
         digishieldConsensus.fDigishieldDifficultyCalculation = true;
         digishieldConsensus.nPowTargetTimespan = 60; // post-digishield: 1 minute
         digishieldConsensus.nCoinbaseMaturity = 240;
+
+        // Blocks 35,000 - 99,999 are no Digishield and no AuxPoW
+        nonDigishieldConsensus = consensus;
+        nonDigishieldConsensus.nHeightEffective = 35000;
+        nonDigishieldConsensus.fSimplifiedRewards = true;
+        nonDigishieldConsensus.fDigishieldDifficultyCalculation = false;
+        nonDigishieldConsensus.nPowTargetTimespan = 60; // post-digishield: 1 minute
+        nonDigishieldConsensus.nCoinbaseMaturity = 240;
 
         // Blocks 100,000+ are AuxPoW
         // Some tests from Dogecoin expect non-auxpow blocks. This allows those tests to pass.
@@ -138,9 +147,10 @@ public:
         auxpowConsensus.fAllowLegacyBlocks = false;
 
         // Assemble the binary search tree of consensus parameters
-        pConsensusRoot = &digishieldConsensus;
+        pConsensusRoot = &nonDigishieldConsensus;
+        nonDigishieldConsensus.pLeft = &digishieldConsensus;
+        nonDigishieldConsensus.pRight = &auxpowConsensus;
         digishieldConsensus.pLeft = &consensus;
-        digishieldConsensus.pRight = &auxpowConsensus;
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
