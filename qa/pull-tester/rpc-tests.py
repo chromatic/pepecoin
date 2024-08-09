@@ -76,8 +76,8 @@ for arg in sys.argv[1:]:
         opts.add(arg)
 
 #Set env vars
-if "DOGECOIND" not in os.environ:
-    os.environ["DOGECOIND"] = BUILDDIR + '/src/dogecoind' + EXEEXT
+if "PEPECOIND" not in os.environ:
+    os.environ["PEPECOIND"] = BUILDDIR + '/src/pepecoind' + EXEEXT
 
 if EXEEXT == ".exe" and "-win" not in opts:
     # https://github.com/bitcoin/bitcoin/commit/d52802551752140cf41f0d9a225a43e84404d3e9
