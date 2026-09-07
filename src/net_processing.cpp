@@ -1765,7 +1765,7 @@ bool static ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStr
         }
 
         if (best_block != nullptr) {
-            // Dogecoin: allow header requests from inv to be non-serial by
+            // Pepecoin: allow header requests from inv to be non-serial by
             // forcing the request, to be able to get split chaintips quickly.
             RequestHeadersFrom(pfrom, connman, pindexBestHeader, *best_block, true /* force */);
             LogPrint("net", "getheaders (%d) %s to peer=%d\n", pindexBestHeader->nHeight, best_block->ToString(), pfrom->id);
