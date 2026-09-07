@@ -92,7 +92,7 @@ AC_DEFUN([BITCOIN_FIND_BDB53],[
     TLIBS="${LIBS}"
     LIBS="${LIBS} ${BDB_LIBS}"
     AC_SEARCH_LIBS([main],[],[],[
-        AC_MSG_ERROR([libdb_cxx missing, Dogecoin Core requires this library for wallet functionality (--disable-wallet to disable wallet functionality)])
+        AC_MSG_ERROR([libdb_cxx missing, Pepecoin Core requires this library for wallet functionality (--disable-wallet to disable wallet functionality)])
     ])
     LIBS="${TLIBS}"
   fi
