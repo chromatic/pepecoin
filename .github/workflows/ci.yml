@@ -149,7 +149,9 @@ jobs:
             host: x86_64-w64-mingw32
             container: ubuntu:20.04
             container-options: --privileged
-            packages: python3 nsis g++-mingw-w64-x86-64 wine64 bc wine-binfmt
+            packages: python3 nsis g++-mingw-w64-x86-64 wine64 wine32 bc wine-binfmt binfmt-support
+            preinstall: |
+              dpkg --add-architecture i386
             postinstall: |
               update-alternatives --set x86_64-w64-mingw32-gcc  /usr/bin/x86_64-w64-mingw32-gcc-posix
               update-alternatives --set x86_64-w64-mingw32-g++  /usr/bin/x86_64-w64-mingw32-g++-posix
@@ -168,7 +170,9 @@ jobs:
             host: x86_64-w64-mingw32
             container: ubuntu:20.04
             container-options: --privileged
-            packages: python3 nsis g++-mingw-w64-x86-64 wine64 bc wine-binfmt
+            packages: python3 nsis g++-mingw-w64-x86-64 wine64 wine32 bc wine-binfmt binfmt-support
+            preinstall: |
+              dpkg --add-architecture i386
             postinstall: |
               update-alternatives --set x86_64-w64-mingw32-gcc  /usr/bin/x86_64-w64-mingw32-gcc-posix
               update-alternatives --set x86_64-w64-mingw32-g++  /usr/bin/x86_64-w64-mingw32-g++-posix
