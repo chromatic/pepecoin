@@ -552,9 +552,12 @@ BOOST_FIXTURE_TEST_CASE(derive_new_child_key_test, WalletTestingSetup)
     CWallet* wallet = pwalletMain;
     LOCK(wallet->cs_wallet);
 
-    // Use a fixed seed and known child public key
+    // Use a fixed seed and known child public key.
+    // Pepecoin derives HD keys at m/0'/0'/n' (not the BIP44 coin-type-3 path
+    // the hdKeypath label below claims), so this expected value is computed
+    // for that actual derivation, not for m/0'/3'/0'.
     std::string testSeedHex = "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f";
-    std::string expectedPubKeyHex = "0305a077194300e27d320a9504f808a16f05b38dabead31f10104c075d88f81a38";
+    std::string expectedPubKeyHex = "03dedf41abc6c95c6c1f4573f5a790e2bc446ae000b232735dbec5ac4f10703d11";
     std::vector<unsigned char> seed = ParseHex(testSeedHex);
 
     // Initialize the master key with the fixed seed and get the public key
